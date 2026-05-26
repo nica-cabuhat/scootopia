@@ -221,19 +221,19 @@
     color: oklch(0.2 0 89.876);
   }
 
-  /* Scrollbar */
+  /* Scrollbar — flat Apple style */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 9999px;
+    background: oklch(0.439 0 89.876 / 50%);
+    border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.439 0 89.876);
+    background: oklch(0.542 0 89.876 / 80%);
   }
 }
