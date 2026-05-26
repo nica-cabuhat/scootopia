@@ -4,41 +4,73 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* --------------------------------------------------------------------------
+   Scootopia Design Tokens
+   Source: Figma / Side Quest (7gam2dXNl9q07lywwvqRee)
+   All colors converted from hex to oklch for Tailwind v4 compatibility.
+   -------------------------------------------------------------------------- */
+
 @theme inline {
+  /* --- Tailwind v4 / shadcn semantic mappings --- */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* --- Scootopia brand palette (available as Tailwind utilities) --- */
+  /* e.g. bg-scootopia-accent, text-scootopia-gray-60, border-scootopia-gray-80 */
+  --color-scootopia-black: oklch(0 0 0);
+  --color-scootopia-white: oklch(1 0 89.876);
+  --color-scootopia-gray-10: oklch(0.967 0 89.876);
+  --color-scootopia-gray-20: oklch(0.907 0 89.876);
+  --color-scootopia-gray-30: oklch(0.827 0 89.876);
+  --color-scootopia-gray-40: oklch(0.732 0 89.876);
+  --color-scootopia-gray-50: oklch(0.643 0 89.876);
+  --color-scootopia-gray-60: oklch(0.542 0 89.876);
+  --color-scootopia-gray-70: oklch(0.439 0 89.876);
+  --color-scootopia-gray-80: oklch(0.345 0 89.876);
+  --color-scootopia-gray-90: oklch(0.269 0 89.876);
+  --color-scootopia-gray-100: oklch(0.2 0 89.876);
+  --color-scootopia-accent: oklch(0.837 0.172 83.07);
+  --color-scootopia-accent-fg: oklch(0.2 0 89.876);
+  --color-scootopia-success: oklch(0.623 0.166 148.089);
+  --color-scootopia-warning: oklch(0.832 0.166 90.44);
+  --color-scootopia-error: oklch(0.667 0.22 28.373);
+  --color-scootopia-network-error: oklch(0.738 0.177 50.583);
+
+  /* --- Typography --- */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+
+  /* --- Radius (shadcn scale built on --radius base) --- */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,83 +80,160 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* --------------------------------------------------------------------------
+   Light theme (maps shadcn semantic tokens to Scootopia values)
+   The design is dark-first, so light mode uses the inverted scale.
+   -------------------------------------------------------------------------- */
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Base */
+  --background: oklch(1 0 89.876); /* white            */
+  --foreground: oklch(0.2 0 89.876); /* gray-100         */
+
+  /* Card / Popover */
+  --card: oklch(0.967 0 89.876); /* gray-10          */
+  --card-foreground: oklch(0.2 0 89.876); /* gray-100         */
+  --popover: oklch(0.967 0 89.876);
+  --popover-foreground: oklch(0.2 0 89.876);
+
+  /* Primary = accent yellow */
+  --primary: oklch(0.837 0.172 83.07); /* accent #ffbd00   */
+  --primary-foreground: oklch(0.2 0 89.876); /* accent-fg        */
+
+  /* Secondary = gray-90 surface */
+  --secondary: oklch(0.907 0 89.876); /* gray-20          */
+  --secondary-foreground: oklch(0.2 0 89.876); /* gray-100         */
+
+  /* Muted */
+  --muted: oklch(0.827 0 89.876); /* gray-30          */
+  --muted-foreground: oklch(0.542 0 89.876); /* gray-60          */
+
+  /* Accent (shadcn interactive highlight) */
+  --accent: oklch(0.907 0 89.876); /* gray-20          */
+  --accent-foreground: oklch(0.2 0 89.876);
+
+  /* Destructive = error red */
+  --destructive: oklch(0.667 0.22 28.373); /* #ff493d          */
+
+  /* Border / Input / Ring */
+  --border: oklch(0.345 0 89.876 / 20%); /* gray-80 subtle */
+  --input: oklch(0.345 0 89.876 / 20%);
+  --ring: oklch(0.837 0.172 83.07); /* accent           */
+
+  /* Charts (status colors) */
+  --chart-1: oklch(0.623 0.166 148.089); /* success          */
+  --chart-2: oklch(0.832 0.166 90.44); /* warning          */
+  --chart-3: oklch(0.667 0.22 28.373); /* error            */
+  --chart-4: oklch(0.738 0.177 50.583); /* network-error    */
+  --chart-5: oklch(0.837 0.172 83.07); /* accent           */
+
+  /* Radius base (12px matches the Figma card radius) */
+  --radius: 0.75rem;
+
+  /* Sidebar */
+  --sidebar: oklch(0.967 0 89.876);
+  --sidebar-foreground: oklch(0.2 0 89.876);
+  --sidebar-primary: oklch(0.837 0.172 83.07);
+  --sidebar-primary-foreground: oklch(0.2 0 89.876);
+  --sidebar-accent: oklch(0.907 0 89.876);
+  --sidebar-accent-foreground: oklch(0.2 0 89.876);
+  --sidebar-border: oklch(0.345 0 89.876 / 20%);
+  --sidebar-ring: oklch(0.837 0.172 83.07);
 }
 
+/* --------------------------------------------------------------------------
+   Dark theme (the primary / designed experience)
+   -------------------------------------------------------------------------- */
+
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Base */
+  --background: oklch(0 0 0); /* #000000 canvas   */
+  --foreground: oklch(0.967 0 89.876); /* gray-10          */
+
+  /* Card / Popover */
+  --card: oklch(0.2 0 89.876); /* gray-100 #161616 */
+  --card-foreground: oklch(0.967 0 89.876); /* gray-10          */
+  --popover: oklch(0.2 0 89.876);
+  --popover-foreground: oklch(0.967 0 89.876);
+
+  /* Primary = accent yellow */
+  --primary: oklch(0.837 0.172 83.07); /* accent #ffbd00   */
+  --primary-foreground: oklch(0.2 0 89.876); /* accent-fg        */
+
+  /* Secondary = elevated surface */
+  --secondary: oklch(0.269 0 89.876); /* gray-90 #262626  */
+  --secondary-foreground: oklch(0.967 0 89.876); /* gray-10          */
+
+  /* Muted */
+  --muted: oklch(0.269 0 89.876); /* gray-90          */
+  --muted-foreground: oklch(0.542 0 89.876); /* gray-60 #6f6f6f  */
+
+  /* Accent (shadcn interactive highlight) */
+  --accent: oklch(0.269 0 89.876); /* gray-90          */
+  --accent-foreground: oklch(0.967 0 89.876);
+
+  /* Destructive = error red */
+  --destructive: oklch(0.667 0.22 28.373); /* #ff493d          */
+
+  /* Border / Input / Ring */
+  --border: oklch(0.345 0 89.876); /* gray-80 #393939  */
+  --input: oklch(0.345 0 89.876 / 60%);
+  --ring: oklch(0.837 0.172 83.07); /* accent           */
+
+  /* Charts (status colors) */
+  --chart-1: oklch(0.623 0.166 148.089); /* success          */
+  --chart-2: oklch(0.832 0.166 90.44); /* warning          */
+  --chart-3: oklch(0.667 0.22 28.373); /* error            */
+  --chart-4: oklch(0.738 0.177 50.583); /* network-error    */
+  --chart-5: oklch(0.837 0.172 83.07); /* accent           */
+
+  /* Sidebar */
+  --sidebar: oklch(0.2 0 89.876);
+  --sidebar-foreground: oklch(0.967 0 89.876);
+  --sidebar-primary: oklch(0.837 0.172 83.07);
+  --sidebar-primary-foreground: oklch(0.2 0 89.876);
+  --sidebar-accent: oklch(0.269 0 89.876);
+  --sidebar-accent-foreground: oklch(0.967 0 89.876);
+  --sidebar-border: oklch(0.345 0 89.876);
+  --sidebar-ring: oklch(0.837 0.172 83.07);
 }
+
+/* --------------------------------------------------------------------------
+   Base layer
+   -------------------------------------------------------------------------- */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
+  }
+
+  /* Selection uses the accent yellow */
+  ::selection {
+    background-color: oklch(0.837 0.172 83.07);
+    color: oklch(0.2 0 89.876);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.439 0 89.876);
   }
 }
