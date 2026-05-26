@@ -2,11 +2,65 @@
 
 ### Phase 0 — Project Setup
 
-- [ ] Install missing dependencies: `next-auth`, `p-limit`, `vitest`, `@testing-library/react`
-- [ ] Configure `vitest` with jsdom and path aliases
-- [ ] Set up `.env.local` with auth env var placeholders
-- [ ] Define folder structure: `app/`, `components/`, `lib/`, `hooks/`, `store/`
-- [ ] Add `__tests__/` directory convention
+- [x] Install missing dependencies: `next-auth`, `p-limit`, `vitest`, `@testing-library/react`
+- [x] Configure `vitest` with jsdom and path aliases
+- [x] Set up `.env.local` with auth env var placeholders
+- [x] Define folder structure: `app/`, `components/`, `lib/`, `hooks/`, `store/`
+- [x] Add `__tests__/` directory convention
+
+---
+
+### Folder Structure
+
+```
+app/
+├── (auth)/
+│   └── login/
+│       └── page.tsx          # login page
+├── api/
+│   └── check-domains/
+│       └── route.ts          # POST handler
+├── globals.css
+├── layout.tsx
+└── page.tsx                  # main dashboard
+
+components/
+├── ui/                       # shadcn primitives (already exists)
+├── layout/
+│   ├── header.tsx            # Scootopia logo + nav
+│   └── dashboard-shell.tsx   # two-panel wrapper (main + sidebar)
+├── domain-checker/
+│   ├── input-tabs.tsx        # Paste/Type | Upload tab switcher
+│   ├── paste-input.tsx       # textarea + URL counter + RUN button
+│   ├── file-upload-zone.tsx  # drag-and-drop xlsx/csv zone
+│   ├── stat-cards.tsx        # four color-coded summary cards
+│   └── results-table.tsx     # domain + status rows
+└── volume-calculator/
+    └── volume-panel.tsx      # Banner input → Video/Native outputs
+
+lib/
+├── utils.ts                  # cn() — already exists
+├── domain-parser.ts          # URL extraction, dedup, zod validation
+├── domain-classifier.ts      # 2XX/3XX/4XX-5XX/Network categorisation
+└── volume-formula.ts         # pure Banner → Video/Native function
+
+hooks/
+├── use-domain-checker.ts     # orchestrates store + API call + SSE/polling
+└── use-clipboard.ts          # copy-to-clipboard with transient "copied" state
+
+store/
+└── domain-checker.ts         # Zustand slice: results, progress, counts
+
+__tests__/
+├── lib/
+│   ├── domain-parser.test.ts
+│   ├── domain-classifier.test.ts
+│   └── volume-formula.test.ts
+└── components/
+    ├── input-tabs.test.tsx
+    ├── stat-cards.test.tsx
+    └── results-table.test.tsx
+```
 
 ---
 
