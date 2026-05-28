@@ -68,7 +68,7 @@ __tests__/
 
 - [x] Build main layout: Scootopia header/logo
 - [x] Build two-panel layout: CPM Bid Guidance (left/main) + Volume Calculator (right/sidebar)
-- [ ] Add Pikachu gif to the sidebar below the volume calculator panel
+- [x] Add Pikachu gif to the sidebar below the volume calculator panel
 - [x] Apply dark theme via Tailwind/shadcn CSS variables
 
 ---
@@ -88,8 +88,8 @@ __tests__/
 - [ ] Classify responses into four categories: 2XX OK, 3XX Redirect, 4XX/5XX Error, Network Error
 - [ ] Build Zustand store for domain check state (results, progress, counts per category)
 - [ ] Stream results back one domain at a time (Server-Sent Events or sequential fetch with state updates)
-- [ ] Build four stat summary cards (color-coded: green / yellow / red / orange)
-- [ ] Build results table below stat cards: domain URL + status response per row
+- [x] Build four stat summary cards (color-coded: green / yellow / red / orange)
+- [ ] Build results list below stat cards: domain URL + status response per row
 - [ ] CSV export for Upload tab: domain + status columns
 
 ---
