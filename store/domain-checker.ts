@@ -59,7 +59,7 @@ export const useDomainCheckerStore = create<DomainCheckerState & DomainCheckerAc
         set((state) => {
           const newUrls = new Set(newResults.map((r) => r.url));
           const kept = state.results.filter((r) => !newUrls.has(r.url));
-          const allResults = [...newResults, ...kept];
+          const allResults = [...kept, ...newResults];
           const counts = zeroCounts();
           for (const r of allResults) counts[r.category] += 1;
           return { results: allResults, counts };

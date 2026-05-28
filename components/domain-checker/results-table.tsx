@@ -23,7 +23,7 @@ const ResultsTable = () => {
   const totalPages = Math.ceil(results.length / pageSize);
   const safePage = Math.min(page, totalPages);
   const start = (safePage - 1) * pageSize;
-  const visible = results.slice(start, start + pageSize).reverse();
+  const visible = [...results].reverse().slice(start, start + pageSize);
 
   const handlePageSize = (val: string) => {
     setPageSize(Number(val));

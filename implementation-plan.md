@@ -107,20 +107,20 @@ __tests__/
 
 ### Phase 5 — Auth
 
-- [ ] Configure next-auth v5 credentials provider using env var credentials
-- [ ] Create login page UI (`/login`)
-- [ ] Add Next.js middleware to protect all routes, redirect unauthenticated users to `/login`
-- [ ] Add sign out action
+- [x] Configure next-auth v5 credentials provider using env var credentials
+- [x] Create login page UI (`/login`)
+- [x] Add Next.js middleware to protect all routes, redirect unauthenticated users to `/login`
+- [x] Add sign out action
 
 ---
 
 ### Phase 6 — Testing
 
-- [ ] Unit tests: volume formula (`lib/`)
-- [ ] Unit tests: domain URL parsing and deduplication (`lib/`)
-- [ ] Unit tests: response classification logic (`lib/`)
-- [ ] Component tests: tab switcher, stat cards, results table
-- [ ] Integration test: API route `/api/check-domains` with mocked fetch
+- [x] Unit tests: volume formula (`lib/`)
+- [x] Unit tests: domain URL parsing and deduplication (`lib/`)
+- [x] Unit tests: response classification logic (`lib/`)
+- [x] Component tests: tab switcher, stat cards, results table
+- [x] Integration test: API route `/api/check-domains` with mocked fetch
 
 ---
 
