@@ -66,16 +66,16 @@ __tests__/
 
 ### Phase 1 — App Shell & Layout
 
-- [ ] Build main layout: Scootopia header/logo
-- [ ] Build two-panel layout: CPM Bid Guidance (left/main) + Volume Calculator (right/sidebar)
+- [x] Build main layout: Scootopia header/logo
+- [x] Build two-panel layout: CPM Bid Guidance (left/main) + Volume Calculator (right/sidebar)
 - [ ] Add Pikachu gif to the sidebar below the volume calculator panel
-- [ ] Apply dark theme via Tailwind/shadcn CSS variables
+- [x] Apply dark theme via Tailwind/shadcn CSS variables
 
 ---
 
 ### Phase 2 — CPM Bid Guidance: Input
 
-- [ ] Build tab switcher component (Paste/Type | Upload)
+- [x] Build tab switcher component (Paste/Type | Upload)
 - [ ] **Paste/Type tab:** textarea input with live URL detection counter and RUN button
 - [ ] **Upload tab:** drag-and-drop zone accepting xlsx and csv; parse domains from first sheet/column using `xlsx`; show detected URL count; Export File button (disabled until results exist)
 - [ ] Shared input validation via zod (strip empty lines, validate URL format, deduplicate)

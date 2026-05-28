@@ -1,4 +1,6 @@
 import DomainCheckerContainer from "@/components/domain-checker/domain-checker-container";
+import VolumePanel from "@/components/volume-calculator/volume-panel";
+import { Volume } from "lucide-react";
 import React from "react";
 
 const DashboardShell = () => {
@@ -7,15 +9,8 @@ const DashboardShell = () => {
       <div className="h-full min-h-0 col-span-9 overflow-y-auto">
         <DomainCheckerContainer />
       </div>
-      <div className="h-full min-h-0 overflow-hidden col-span-3 flex flex-col justify-between items-center ">
-        <div className="rounded-lg shadow  w-full h-full">
-          <h3 className="font-bold text-lg">Volume Calculator</h3>
-          <p>Calculate the volume of your items.</p>
-        </div>
-        <div className="rounded-lg shadow w-full h-full">
-          <h3 className="font-bold text-lg">Volume Calculator</h3>
-          <p>Calculate the volume of your items.</p>
-        </div>
+      <div className="h-full min-h-0 overflow-hidden col-span-3 ">
+        <VolumePanel />
       </div>
     </div>
   );

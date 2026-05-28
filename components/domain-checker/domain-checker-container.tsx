@@ -1,8 +1,6 @@
 import InputTabs from "@/components/domain-checker/input-tabs";
-import PasteInput from "@/components/domain-checker/paste-input";
 import ResultsTable from "@/components/domain-checker/results-table";
 import StatCards from "@/components/domain-checker/stat-cards";
-import { StatusIndicator } from "next/dist/next-devtools/dev-overlay/components/devtools-indicator/status-indicator";
 
 const DomainCheckerContainer = () => {
   return (
@@ -11,8 +9,10 @@ const DomainCheckerContainer = () => {
         CPM Bid Guidance
       </h2>
       <InputTabs />
-      <StatCards />
-      <ResultsTable />
+      <div className="mt-12 space-y-6">
+        <StatCards />
+        <ResultsTable />
+      </div>
     </div>
   );
 };
