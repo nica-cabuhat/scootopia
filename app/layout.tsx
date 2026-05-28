@@ -9,8 +9,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Scootopia",
-  description:
-    "CPM bid guidance and volume calculator for programmatic advertisers.",
+  description: "Do and volume calculator for programmatic advertisers.",
 };
 
 export default function RootLayout({

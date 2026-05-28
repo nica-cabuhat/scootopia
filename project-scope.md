@@ -4,11 +4,11 @@ There are two identified toils in the client's workflow. First is the manual che
 
 ## Solution
 
-Create a unified dashboard that solves both client issues. First, a CPM Bid Guidance tool that allows copy/paste or bulk upload of a domain list and checks each domain's HTTP response. Second, a Volume Calculator (migrated from an existing repo) displayed on the side panel.
+Create a unified dashboard that solves both client issues. First, a Domain Lookup tool that allows copy/paste or bulk upload of a domain list and checks each domain's HTTP response. Second, a Volume Calculator (migrated from an existing repo) displayed on the side panel.
 
 ## Features
 
-### CPM Bid Guidance
+### Domain Lookup
 
 - Two input modes via tabs:
   - **Paste/Type** — textarea for pasting a domain list, triggered by a RUN button

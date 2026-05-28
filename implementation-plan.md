@@ -67,13 +67,13 @@ __tests__/
 ### Phase 1 — App Shell & Layout
 
 - [x] Build main layout: Scootopia header/logo
-- [x] Build two-panel layout: CPM Bid Guidance (left/main) + Volume Calculator (right/sidebar)
+- [x] Build two-panel layout: Domain Lookup (left/main) + Volume Calculator (right/sidebar)
 - [x] Add Pikachu gif to the sidebar below the volume calculator panel
 - [x] Apply dark theme via Tailwind/shadcn CSS variables
 
 ---
 
-### Phase 2 — CPM Bid Guidance: Input
+### Phase 2 — Domain Lookup: Input
 
 - [x] Build tab switcher component (Paste/Type | Upload)
 - [x] **Paste/Type tab:** textarea input with live URL detection counter and RUN button
@@ -82,7 +82,7 @@ __tests__/
 
 ---
 
-### Phase 3 — CPM Bid Guidance: Domain Checker
+### Phase 3 — Domain Lookup: Domain Checker
 
 - [x] Create server-side API route `POST /api/check-domains` using `p-limit` to throttle concurrent requests
 - [x] Classify responses into four categories: 2XX OK, 3XX Redirect, 4XX/5XX Error, Network Error

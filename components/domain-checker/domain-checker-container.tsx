@@ -12,7 +12,7 @@ const DomainCheckerContainer = () => {
     <div className="px-1 overflow-y-auto h-full pb-2 pr-2">
       <div className="flex justify-between items-center pb-6">
         <h2 className="text-3xl font-medium uppercase tracking-wide">
-          CPM Bid Guidance
+          Domain Lookup
         </h2>
         {results.length > 0 && (
           <Button
