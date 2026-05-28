@@ -84,13 +84,13 @@ __tests__/
 
 ### Phase 3 — CPM Bid Guidance: Domain Checker
 
-- [ ] Create server-side API route `POST /api/check-domains` using `p-limit` to throttle concurrent requests
-- [ ] Classify responses into four categories: 2XX OK, 3XX Redirect, 4XX/5XX Error, Network Error
-- [ ] Build Zustand store for domain check state (results, progress, counts per category)
-- [ ] Stream results back one domain at a time (Server-Sent Events or sequential fetch with state updates)
+- [x] Create server-side API route `POST /api/check-domains` using `p-limit` to throttle concurrent requests
+- [x] Classify responses into four categories: 2XX OK, 3XX Redirect, 4XX/5XX Error, Network Error
+- [x] Build Zustand store for domain check state (results, progress, counts per category)
+- [x] Stream results back one domain at a time (Server-Sent Events or sequential fetch with state updates)
 - [x] Build four stat summary cards (color-coded: green / yellow / red / orange)
-- [ ] Build results list below stat cards: domain URL + status response per row
-- [ ] CSV export for Upload tab: domain + status columns
+- [x] Build results list below stat cards: domain URL + status response per row
+- [x] CSV export for Upload tab: domain + status columns
 
 ---
 
