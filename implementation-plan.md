@@ -76,9 +76,9 @@ __tests__/
 ### Phase 2 — CPM Bid Guidance: Input
 
 - [x] Build tab switcher component (Paste/Type | Upload)
-- [ ] **Paste/Type tab:** textarea input with live URL detection counter and RUN button
-- [ ] **Upload tab:** drag-and-drop zone accepting xlsx and csv; parse domains from first sheet/column using `xlsx`; show detected URL count; Export File button (disabled until results exist)
-- [ ] Shared input validation via zod (strip empty lines, validate URL format, deduplicate)
+- [x] **Paste/Type tab:** textarea input with live URL detection counter and RUN button
+- [x] **Upload tab:** drag-and-drop zone accepting xlsx and csv; parse domains from first sheet/column using `xlsx`; show detected URL count; Export File button (disabled until results exist)
+- [x] Shared input validation via zod (strip empty lines, validate URL format, deduplicate)
 
 ---
 
@@ -98,10 +98,10 @@ __tests__/
 
 > **Blocker:** formula (Banner → Video, Native) must be confirmed before building.
 
-- [ ] Pull and document the formula from the existing repo
-- [ ] Build volume calculator panel: Banner input, Video output, Native output
-- [ ] Wire up formula logic (pure function in `lib/`)
-- [ ] Make Video and Native outputs copy-to-clipboard on click
+- [x] Pull and document the formula from the existing repo
+- [x] Build volume calculator panel: Banner input, Video output, Native output
+- [x] Wire up formula logic (pure function in `lib/`)
+- [x] Make Video and Native outputs copy-to-clipboard on click
 
 ---
 

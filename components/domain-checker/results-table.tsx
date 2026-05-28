@@ -1,20 +1,20 @@
+"use client";
 import ResultItem from "@/components/domain-checker/result-item";
+import { useDomainCheckerStore } from "@/store/domain-checker";
 
 const ResultsTable = () => {
-  const sampleResults = [
-    { url: "https://example.com", statusCode: "ok" },
-    { url: "https://example.org", statusCode: "redirect" },
-    { url: "https://example.net", statusCode: "error" },
-    { url: "https://example.edu", statusCode: "network-error" },
-  ];
+  const results = useDomainCheckerStore((s) => s.results);
+
+  if (results.length === 0) return null;
 
   return (
     <ul className="w-full mt-4 space-y-2">
-      {sampleResults.map((result, index) => (
+      {results.map((result, index) => (
         <ResultItem
           key={index}
           url={result.url}
-          statusCode={result.statusCode}
+          statusCode={result.category}
+          status={result.status}
         />
       ))}
     </ul>

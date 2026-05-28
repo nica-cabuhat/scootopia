@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { parseUrls } from "@/lib/domain-parser";
+import { useDomainChecker } from "@/hooks/use-domain-checker";
+import { useDomainCheckerStore } from "@/store/domain-checker";
 
 const PasteInput = () => {
   const [text, setText] = useState("");
   const [debouncedText, setDebouncedText] = useState("");
+  const { run } = useDomainChecker();
+  const isLoading = useDomainCheckerStore((s) => s.isLoading);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedText(text), 600);
@@ -30,9 +34,13 @@ const PasteInput = () => {
         <Button
           className="cursor-pointer uppercase tracking-wide rounded-md"
           variant="default"
-          disabled={urls.length === 0}
+          disabled={urls.length === 0 || isLoading}
+          onClick={async () => {
+            const ok = await run(urls);
+            if (ok) { setText(""); setDebouncedText(""); }
+          }}
         >
-          Run
+          {isLoading ? "Running…" : "Run"}
         </Button>
       </div>
     </div>
