@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,19 +13,15 @@ const INPUT_READONLY_CLASS =
 
 const VolumePanel = () => {
   const [bannerVolume, setBannerVolume] = useState("");
-  const [videoVolume, setVideoVolume] = useState("");
-  const [nativeVolume, setNativeVolume] = useState("");
   const [isVideoCopied, setIsVideoCopied] = useState(false);
   const [isNativeCopied, setIsNativeCopied] = useState(false);
 
   const videoRef = useRef<HTMLInputElement>(null);
   const nativeRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const parsed = Number(bannerVolume);
-    setVideoVolume(bannerVolume ? `${Math.round(parsed * 0.58)}m` : "");
-    setNativeVolume(bannerVolume ? `${Math.round(parsed * 0.6 * 0.26)}m` : "");
-  }, [bannerVolume]);
+  const parsed = Number(bannerVolume);
+  const videoVolume = bannerVolume ? `${Math.round(parsed * 0.58)}m` : "";
+  const nativeVolume = bannerVolume ? `${Math.round(parsed * 0.6 * 0.26)}m` : "";
 
   const copyToClipboard = async (
     ref: React.RefObject<HTMLInputElement | null>,

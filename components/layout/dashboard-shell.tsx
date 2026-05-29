@@ -1,7 +1,5 @@
 import DomainCheckerContainer from "@/components/domain-checker/domain-checker-container";
 import VolumePanel from "@/components/volume-calculator/volume-panel";
-import { Volume } from "lucide-react";
-import React from "react";
 
 const DashboardShell = () => {
   return (
