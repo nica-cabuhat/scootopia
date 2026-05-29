@@ -1,28 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "@/app/api/check-domains/route";
 
-const { mockPage, mockContext, mockBrowser } = vi.hoisted(() => {
-  const mockPage = {
-    goto: vi.fn(),
-    url: vi.fn(),
-  };
-  const mockContext = {
-    newPage: vi.fn().mockResolvedValue(mockPage),
-    addInitScript: vi.fn().mockResolvedValue(undefined),
-    close: vi.fn().mockResolvedValue(undefined),
-  };
-  const mockBrowser = {
-    newContext: vi.fn().mockResolvedValue(mockContext),
-    isConnected: vi.fn().mockReturnValue(true),
-  };
-  return { mockPage, mockContext, mockBrowser };
-});
-
-vi.mock("playwright", () => ({
-  chromium: {
-    launch: vi.fn().mockResolvedValue(mockBrowser),
-  },
-}));
+function mockFetch(status: number, finalUrl: string) {
+  vi.spyOn(globalThis, "fetch").mockResolvedValue({
+    status,
+    url: finalUrl,
+  } as Response);
+}
 
 async function readNdjson(response: Response) {
   const text = await response.text();
@@ -38,36 +22,25 @@ function makeRequest(urls: string[]) {
 }
 
 beforeEach(() => {
-  vi.clearAllMocks();
-  mockBrowser.isConnected.mockReturnValue(true);
-  mockBrowser.newContext.mockResolvedValue(mockContext);
-  mockContext.newPage.mockResolvedValue(mockPage);
-  mockContext.addInitScript.mockResolvedValue(undefined);
-  mockContext.close.mockResolvedValue(undefined);
+  vi.restoreAllMocks();
 });
 
 describe("POST /api/check-domains", () => {
   it("returns NDJSON content-type", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 200 });
-    mockPage.url.mockReturnValue("https://google.com/");
-
+    mockFetch(200, "https://google.com/");
     const res = await POST(makeRequest(["https://google.com"]));
     expect(res.headers.get("content-type")).toBe("application/x-ndjson");
   });
 
   it("returns one result per URL", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 200 });
-    mockPage.url.mockReturnValue("https://apple.com/");
-
+    mockFetch(200, "https://apple.com/");
     const res = await POST(makeRequest(["https://apple.com", "https://google.com"]));
     const results = await readNdjson(res);
     expect(results).toHaveLength(2);
   });
 
   it("classifies a 200 response as ok", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 200 });
-    mockPage.url.mockReturnValue("https://apple.com/");
-
+    mockFetch(200, "https://apple.com/");
     const res = await POST(makeRequest(["https://apple.com"]));
     const [result] = await readNdjson(res);
     expect(result.status).toBe(200);
@@ -75,9 +48,7 @@ describe("POST /api/check-domains", () => {
   });
 
   it("classifies a 404 response as error", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 404 });
-    mockPage.url.mockReturnValue("https://broken.com/");
-
+    mockFetch(404, "https://broken.com/");
     const res = await POST(makeRequest(["https://broken.com"]));
     const [result] = await readNdjson(res);
     expect(result.status).toBe(404);
@@ -85,8 +56,7 @@ describe("POST /api/check-domains", () => {
   });
 
   it("classifies a navigation failure as network-error", async () => {
-    mockPage.goto.mockRejectedValue(new Error("net::ERR_NAME_NOT_RESOLVED"));
-
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(new Error("fetch failed"));
     const res = await POST(makeRequest(["https://doesnotexist.invalid"]));
     const [result] = await readNdjson(res);
     expect(result.status).toBeNull();
@@ -94,21 +64,10 @@ describe("POST /api/check-domains", () => {
   });
 
   it("detects cross-host redirect as redirect category", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 200 });
-    mockPage.url.mockReturnValue("https://us.braun.com/en-us/page");
-
+    mockFetch(200, "https://us.braun.com/en-us/");
     const res = await POST(makeRequest(["https://braun.com"]));
     const [result] = await readNdjson(res);
     expect(result.category).toBe("redirect");
-    expect(result.finalUrl).toBe("https://us.braun.com/en-us/page");
-  });
-
-  it("closes the browser context after each check", async () => {
-    mockPage.goto.mockResolvedValue({ status: () => 200 });
-    mockPage.url.mockReturnValue("https://apple.com/");
-
-    const res = await POST(makeRequest(["https://apple.com"]));
-    await res.text(); // drain stream so start() completes
-    expect(mockContext.close).toHaveBeenCalledTimes(1);
+    expect(result.finalUrl).toBe("https://us.braun.com/en-us/");
   });
 });
