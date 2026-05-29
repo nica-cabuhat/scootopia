@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scootopia
 
-## Getting Started
+Internal tooling for programmatic advertisers. Two features: a domain health checker for CPM bid guidance and a volume calculator for estimating impression delivery across ad formats.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+### Domain Checker
+
+Checks whether a list of domains is healthy before including them in a CPM campaign. Accepts a pasted URL list or an uploaded `.xlsx`/`.csv` file (URLs read from the first column).
+
+Each domain is fetched with realistic browser headers and classified into one of four categories:
+
+| Category | Meaning |
+|---|---|
+| `ok` | Domain responds 2xx and stays on the same host |
+| `redirect` | Domain redirects to a different host (cross-domain redirect) |
+| `error` | Domain responds 4xx or 5xx |
+| `network-error` | Domain is unreachable (DNS failure, timeout, etc.) |
+
+Results are streamed back as they complete (NDJSON), displayed newest-first in a paginated table (20/50/100 rows per page), and persisted in `localStorage` for 30 days. Re-checking a URL updates its row rather than duplicating it. A "Clear History" button wipes all stored results.
+
+Results can be exported as a `.csv` file.
+
+### Volume Calculator
+
+Estimates impression volume across formats given a banner budget.
+
+| Format | Formula |
+|---|---|
+| Video | `banner × 0.58` |
+| Native | `banner × 0.6 × 0.26` |
+
+Video and Native fields are read-only and update automatically when the Banner value changes. Click any field to copy the value to clipboard.
+
+---
+
+## Tech Stack
+
+- **Next.js 16** — App Router, streaming API routes, `proxy.ts` for auth middleware
+- **next-auth v5** — Credentials provider, JWT session via `AUTH_SECRET`
+- **Zustand v5** — Client state with `persist` middleware and custom expiring localStorage adapter
+- **Tailwind v4** — CSS-based config, oklch color tokens, dark mode only
+- **shadcn/ui** — Radix primitives with Tailwind variants
+- **Zod v4** — URL validation and form schema
+- **p-limit** — Concurrent fetch cap (5 at a time) for domain checks
+- **Sonner** — Toast notifications
+- **vitest + @testing-library/react** — Unit and component tests (34 tests)
+
+---
+
+## Project Structure
+
+```
+app/
+  (auth)/login/        Login page
+  api/
+    auth/              next-auth handler
+    check-domains/     Domain check endpoint — streams NDJSON results
+  page.tsx             Dashboard (Domain Checker + Volume Calculator)
+
+components/
+  domain-checker/      All domain checker UI components
+  volume-calculator/   Volume panel
+  layout/              Header and dashboard shell
+  ui/                  shadcn primitives (button, input, table, etc.)
+
+lib/
+  domain-classifier.ts  Classifies HTTP status + redirect logic
+  domain-parser.ts      Zod URL validation, deduplication, https:// prepend
+  volume-formula.ts     Banner → Video/Native conversion formulas
+
+store/
+  domain-checker.ts     Zustand store with 30-day persisted localStorage
+
+hooks/
+  use-domain-checker.ts  Orchestrates fetch, NDJSON streaming, toast, store update
+  use-clipboard.ts       Click-to-copy helper
+
+__tests__/             Mirrors src structure — lib, components, api
+proxy.ts               Auth guard (Next.js 16 replacement for middleware.ts)
+auth.ts                next-auth config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `AUTH_SECRET` | Secret for signing JWT session cookies |
+| `AUTH_USERNAME` | Login username |
+| `AUTH_PASSWORD` | Login password |
 
-## Learn More
+Set these in `.env.local` for local development and in the Vercel project settings for production.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run test       # vitest (watch mode)
+npm run lint       # eslint
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## CI/CD
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHub Actions runs on every push and pull request to `main`:
+
+1. `npm audit --audit-level=high` — fails on high/critical vulnerabilities
+2. `eslint` — linting
+3. `vitest --run` — full test suite
+
+Dependabot checks for dependency updates daily and opens PRs automatically. Patch and minor updates are auto-merged when CI passes. Major updates require manual review.
+
+Deployments are handled by Vercel via git integration — merging to `main` triggers a production deploy.

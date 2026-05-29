@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import * as XLSX from "xlsx";
+import { readSheet } from "read-excel-file/browser";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { parseUrls } from "@/lib/domain-parser";
@@ -19,14 +19,15 @@ const FileUploadZone = () => {
   const hasFile = text.length > 0;
 
   const parseFile = async (file: File) => {
-    const data = await file.arrayBuffer();
-    const workbook = XLSX.read(data);
-    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json<unknown[]>(firstSheet, { header: 1 });
-    const parsed = rows
-      .map((row) => String((row as unknown[])[0] ?? ""))
-      .join("\n");
-    setText(parsed);
+    if (file.name.endsWith(".csv")) {
+      const text = await file.text();
+      const rows = text.split(/\r?\n/).map((line) => line.split(",")[0].trim());
+      setText(rows.join("\n"));
+    } else {
+      const rows = await readSheet(file);
+      const parsed = rows.map((row) => String(row[0] ?? "")).join("\n");
+      setText(parsed);
+    }
   };
 
   const handleFile = (file: File | undefined) => {
